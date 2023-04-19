@@ -1,0 +1,6 @@
+project: diem
+target: parse_module
+duration: 1800
+cmds:
+    - cmd: /fuzzers/fuzz_parse_module
+

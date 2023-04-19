@@ -1,0 +1,6 @@
+project: diem
+target: parse_script
+duration: 1800
+cmds:
+    - cmd: /fuzzers/fuzz_parse_script
+
