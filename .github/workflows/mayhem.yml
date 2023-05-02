@@ -58,35 +58,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        parse_script_or_module_mayhemfile:
+        mayhemfile:
           - mayhem/parse_script_or_module.mayhemfile
-        parse_script_mayhemfile:
           - mayhem/parse_script.mayhemfile
-        parse_module_mayhemfile:
           - mayhem/parse_module.mayhemfile
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Start analysis for ${{ matrix.parse_script_or_module_mayhemfile }}
+      - name: Start analysis for ${{ matrix.mayhemfile }}
         uses: ForAllSecure/mcode-action@v1
         with:
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
           args: --image ${{ needs.build.outputs.image }} --file ${{ matrix.parse_script_or_module_mayhemfile }} --duration 300
-          sarif-output: sarif
-
-      - name: Start analysis for ${{ matrix.parse_script_mayhemfile }}
-        uses: ForAllSecure/mcode-action@v1
-        with:
-          mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
-          args: --image ${{ needs.build.outputs.image }} --file ${{ matrix.parse_script_mayhemfile }} --duration 300
-          sarif-output: sarif
-
-      - name: Start analysis for ${{ matrix.parse_module_mayhemfile }}
-        uses: ForAllSecure/mcode-action@v1
-        with:
-          mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
-          args: --image ${{ needs.build.outputs.image }} --file ${{ matrix.parse_module_mayhemfile }} --duration 300
           sarif-output: sarif
           
       - name: Upload SARIF file(s)
